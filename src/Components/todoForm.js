@@ -111,6 +111,7 @@ class TodoForm extends React.Component {
     console.log(this.state.items);
     // this.deleteItem = this.deleteItem.bind(this);
   };
+
   deleteItem(key) {
     debugger;
     console.log(this.state.items);
@@ -121,9 +122,47 @@ class TodoForm extends React.Component {
   }
 
   setUpdate(ele, key) {
+    // debugger;
+
+    let todoList = [...this.state.items];
+    console.log(todoList);
+    console.log(ele.target.value);
+    const index = todoList.findIndex((i) => i.key === key);
+    console.log(index);
+    const newObj = {
+      fname: todoList[index].fname,
+      lname: todoList[index].lname,
+      key: key,
+    };
+
+    if (ele.target.name === "fname") {
+      newObj.fname = ele.target.value;
+      // console.log(todoList.splice(0));
+    }
+    if (ele.target.name === "lname") {
+      newObj.lname = ele.target.value;
+    }
+    console.log(newObj);
+    console.log(this.state.items);
+
+    todoList.splice(index, 1, newObj);
+
+    this.setState({
+      items: todoList,
+    });
+  }
+
+  //////////////////////////
+
+  /**
+  setUpdate(ele, key) {
+   
     debugger;
     const todoList = [...this.state.items];
+    console.log(key);
     const index = todoList.findIndex((i) => i.key === key);
+    console.log(index);
+
     const newObj = {
       lname: todoList[index].lname,
       fname: todoList[index].fname,
@@ -131,31 +170,22 @@ class TodoForm extends React.Component {
     };
     if (ele.target.name === "fname") {
       newObj.fname = ele.target.value;
+      console.log(newObj.fname);
+      // const val = todoList.splice(1, 1, "newObj.fname");
+      // console.log(val);
     }
     if (ele.target.name === "lname") {
       newObj.lname = ele.target.value;
+
+      // const val = todoList.splice(1, 2,"newObj.lname");
+      // console.log(val);
     }
-    const spliced = todoList.splice(index, newObj);
+
     this.setState({
-      items: spliced,
-    });
+      items: newObj.fname,
+    }); 
   }
-  // const items = this.state.items;
-  // items.map((ele) => {
-  //   return (ele.text = text);
-  // });
-
-  // if (i.key === key) {
-  //   i.text = text;
-  // }
-
-  // console.log(text);
-
-  // console.log(text);
-  // this.setState({
-  //   items: items,
-  // });
-
+ */
   /*
   updateItem(text, key) {
     debugger;
@@ -178,10 +208,9 @@ class TodoForm extends React.Component {
       <div className="form">
         <ListItems
           items={this.state.items}
+          // setUpdate={this.setUpdate}
           deleteItem={this.deleteItem}
-          updateItem={this.updateItem}
-          setUpdate={this.setUpdate}
-        ></ListItems>
+        />
         <form id="to-do-form" onSubmit={this.addItem}>
           <input
             type="text"
