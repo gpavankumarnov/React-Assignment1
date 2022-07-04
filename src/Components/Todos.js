@@ -24,6 +24,7 @@ class Todos extends React.Component {
             </tr>
           </thead>
 
+          {/* {Object.entries(todoItems).length>0 && this.props.todoItems?.map((item, index) => { */}
           {this.props.todoItems.map((item, index) => {
             return (
               <tbody key={item.key}>
@@ -33,7 +34,6 @@ class Todos extends React.Component {
                   <td>{item.lname}</td>
                 </tr>
               </tbody>
-              // </table>
             );
           })}
         </table>
@@ -41,5 +41,12 @@ class Todos extends React.Component {
     );
   }
 }
+//null
+//api calls in sox
+//Circuit switching with &&  ****
+// && - localStorage
+// || - first cond
+//Add nullishCo-ehsive in js.
 
+//typechecks
 export default Todos;

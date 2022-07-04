@@ -4,36 +4,41 @@ class ListItems extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ListOfItems: this.props.items,
+      ArrayList: props.items,
+      ownUpdate: true,
     };
+
     this.setUpdate = this.setUpdate.bind(this);
+    this.updateItem = this.updateItem.bind(this);
   }
 
-  // static getDerivedStateFromProps(props, state) {
-  //   console.log("getDerivedState");
-  //   return {
-  //     ListOfItems: props.items,
-  //   };
-  // }
-  componentDidUpdate() {
-    console.log("componenet Update mount");
-    this.setState({
-      ListOfItems: this.props.items,
-    });
+  static getDerivedStateFromProps(props, state) {
+    console.log("calling getDerivedStateFromProps");
+    if (state.ownUpdate) {
+      return {
+        ArrayList: state.ArrayList,
+        ownUpdate: false,
+      };
+    } else if (props.items !== state.ArrayList) {
+      return {
+        ArrayList: props.items,
+      };
+    }
+
+    return null;
   }
+
+  /////////////////////////
 
   setUpdate(ele, key) {
-    debugger;
-
-    let todoList = [...this.state.ListOfItems];
-    console.log(this.state.ListOfItems);
-    console.log(todoList);
-    console.log(ele.target.value);
-    const index = todoList.findIndex((i) => i.key === key);
+    // console.log(this.state.ListItems);
+    let newArray = [...this.state.ArrayList];
+    console.log("ListItems");
+    const index = newArray.findIndex((i) => i.key === key);
     console.log(index);
     const newObj = {
-      fname: todoList[index].fname,
-      lname: todoList[index].lname,
+      fname: newArray[index].fname,
+      lname: newArray[index].lname,
       key: key,
     };
 
@@ -44,15 +49,26 @@ class ListItems extends React.Component {
     if (ele.target.name === "lname") {
       newObj.lname = ele.target.value;
     }
-    console.log(todoList);
+    // console.log(ListOfItems);
     console.log(newObj);
 
-    todoList.splice(index, 1, newObj);
-    console.log(todoList);
+    newArray.splice(index, 1, newObj);
+
+    console.log(newArray);
     this.setState({
-      ListOfItems: todoList,
+      ArrayList: newArray,
+      ownUpdate: true,
     });
-    console.log(this.state.ListOfItems);
+  }
+
+  // }
+
+  ////////////////////
+
+  updateItem(ele, key) {
+    console.log(this.state.ArrayList);
+
+    this.props.updateItem(this.state.ArrayList);
   }
 
   //After getting all list of items from add button then we are storing in one variable.
@@ -63,7 +79,7 @@ class ListItems extends React.Component {
 
     return (
       <div>
-        {this.props.items.map((item, index) => {
+        {this.state.ArrayList.map((item, index) => {
           //Here i am getting each inputs 1. pavankumar 2.chand kumar
           //I am iterating each
           return (
@@ -97,7 +113,7 @@ class ListItems extends React.Component {
                 </button>
                 <button
                   // onClick={() => this.props.updateItem(item.key)}
-                  onClick={() => this.props.updateItem(item.key)}
+                  onClick={() => this.updateItem(item.key)}
                 >
                   Edit
                 </button>
