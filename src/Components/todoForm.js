@@ -6,13 +6,10 @@ import Todos from "./Todos";
 class TodoForm extends React.Component {
   constructor(props) {
     super(props);
-    //State is for storing the data and accessing inside the html via jsx syntax.
+
     this.state = {
-      //item array had created.
       items: [],
 
-      //currentItem object we have created.
-      // state.counter = this.state.counter + 1;
       currentTask: {
         fname: "",
         lname: "",
@@ -46,25 +43,14 @@ class TodoForm extends React.Component {
   };
 
   addItem = (e) => {
-    //PreventDefault is for when click on add button that shouldn't be refresh the page.
     e.preventDefault();
-    //printing the all setState values after given input
-    // const newItem = this.state.currentTask;
 
-    // console.log(newItem);
-    //Checking if inputValues not equal to null then adding the values to newItems.
-    //So on click on add button then setting the inputValues to empty values.
-    //Now after click on add button the values should be stored in one list. --ListItems.js file
     if (
       this.state.currentTask.fname !== "" &&
       this.state.currentTask.lname !== ""
     ) {
       console.log(this.state.currentTask);
-      //initially you wont have values in the items []
-      // console.log(...this.state.items);
-      //storing in new arrays newItems
-      // const newItems = [...this.state.items, this.state.currentTask];
-      // console.log(newItems);
+
       this.setState({
         items: [...this.state.items, this.state.currentTask],
 
@@ -134,8 +120,6 @@ class TodoForm extends React.Component {
         </form>
         <Todos todoItems={this.state.items} />
       </div>
-
-      // <AddListComponent />
     );
   }
 }

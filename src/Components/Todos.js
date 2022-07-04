@@ -2,9 +2,6 @@ import React from "react";
 
 class Todos extends React.Component {
   render() {
-    // const ListOfTodoItems = this.props.todoItems;
-    // console.log(ListOfTodoItems);
-
     return (
       <div>
         <table className="list">
